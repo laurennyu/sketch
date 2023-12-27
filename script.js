@@ -5,7 +5,7 @@ let dim = 16;
 function makePalette(colors) {
     const palette = document.querySelector('#palette');
 
-    let swatch = document.createElement('div');
+    /*let swatch = document.createElement('div');
     swatch.classList.add('swatch');
     swatch.style.backgroundColor = 'red';
     swatch.addEventListener('click', () =>
@@ -51,19 +51,20 @@ function makePalette(colors) {
     swatch.addEventListener('click', () =>
         color = 'black'
     )
-    palette.appendChild(swatch);
+    palette.appendChild(swatch);*/
 
-    /*for (i in colors) {
-        let swatch = document.createElement('div');
+    for (i in colors) {
+        const swatch = document.createElement('div');
         swatch.classList.add('swatch');
         swatch.style.backgroundColor = colors[i];
-        swatch.addEventListener('click', () =>
-            console.log(colors[i])
-        )
         palette.appendChild(swatch);
-    }*/
+    }
+
+    palette.addEventListener('click', (e) => {
+        console.log(e.target.style.backgroundColor);
+        color = e.target.style.backgroundColor;
+    })
 }
-//makePalette(['red', 'yellow', 'blue']);
 
 function makeBoard(rows) {
     while(board.firstChild){
@@ -94,9 +95,10 @@ function makeBoard(rows) {
     }
 }
 
-// make palette and default 16x16 board
-makePalette();
-makeBoard(16);
+// make palette and default board
+makePalette(['red', 'orange', 'yellow', 'blue']);
+//makePalette();
+makeBoard(20);
 
 // allow user to change size of board
 const btn = document.querySelector('#size');
