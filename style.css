@@ -18,3 +18,13 @@
     background-color: white;
     flex: 1;
 }
+
+#palette {
+    display: flex;
+}
+#palette div {
+    height: 40px;
+    width: 40px;
+    margin: 15px 5px;
+    border-radius: 20px;
+}

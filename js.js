@@ -1,6 +1,18 @@
 const board = document.querySelector('#board');
 let color = 'black';
 
+function makePalette(colors) {
+    const palette = document.querySelector('#palette');
+
+    for (i in colors) {
+        const swatch = document.createElement('div');
+        swatch.classList.add('swatch');
+        swatch.style.backgroundColor = colors[i];
+        palette.appendChild(swatch);
+    }
+}
+makePalette(['red', 'yellow', 'blue']);
+
 function makeBoard(rows) {
     // clear board
     while(board.firstChild){
@@ -15,13 +27,13 @@ function makeBoard(rows) {
             const tile = document.createElement('div');
             tile.classList.add('tile');
             // hover
-            tile.addEventListener('mouseenter', () =>
+            /*tile.addEventListener('mouseenter', () =>
                 tile.style.backgroundColor = color
             )
             tile.addEventListener('mouseleave', () =>
                 tile.style.backgroundColor = 'white'
-            )
-            // click
+            )*/
+            // color
             tile.addEventListener('mousedown', () =>
                 tile.style.backgroundColor = color
             )
