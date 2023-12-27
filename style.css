@@ -1,4 +1,21 @@
 #board {
-    height: 1000px;
-    width: 1000px;
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    padding: 10px;
+}
+#board div {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+#board div div {
+    height: auto;
+    width: auto;
+    background-color: white;
+    flex: 1;
 }
