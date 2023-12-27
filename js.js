@@ -1,20 +1,75 @@
 const board = document.querySelector('#board');
 let color = 'black';
+let dim = 16;
 
 function makePalette(colors) {
     const palette = document.querySelector('#palette');
 
-    for (i in colors) {
-        const swatch = document.createElement('div');
+    let swatch = document.createElement('div');
+    swatch.classList.add('swatch');
+    swatch.style.backgroundColor = 'red';
+    swatch.addEventListener('click', () =>
+        color = 'red'
+    )
+    palette.appendChild(swatch);
+
+    swatch = document.createElement('div');
+    swatch.classList.add('swatch');
+    swatch.style.backgroundColor = 'orange';
+    swatch.addEventListener('click', () =>
+        color = 'orange'
+    )
+    palette.appendChild(swatch);
+
+    swatch = document.createElement('div');
+    swatch.classList.add('swatch');
+    swatch.style.backgroundColor = 'yellow';
+    swatch.addEventListener('click', () =>
+        color = 'yellow'
+    )
+    palette.appendChild(swatch);
+
+    swatch = document.createElement('div');
+    swatch.classList.add('swatch');
+    swatch.style.backgroundColor = 'green';
+    swatch.addEventListener('click', () =>
+        color = 'green'
+    )
+    palette.appendChild(swatch);
+
+    swatch = document.createElement('div');
+    swatch.classList.add('swatch');
+    swatch.style.backgroundColor = 'blue';
+    swatch.addEventListener('click', () =>
+        color = 'blue'
+    )
+    palette.appendChild(swatch);
+
+    swatch = document.createElement('div');
+    swatch.classList.add('swatch');
+    swatch.style.backgroundColor = 'black';
+    swatch.addEventListener('click', () =>
+        color = 'black'
+    )
+    palette.appendChild(swatch);
+
+    /*for (i in colors) {
+        let swatch = document.createElement('div');
         swatch.classList.add('swatch');
         swatch.style.backgroundColor = colors[i];
+        swatch.addEventListener('click', () =>
+            console.log(colors[i])
+        )
         palette.appendChild(swatch);
-    }
+    }*/
 }
-makePalette(['red', 'yellow', 'blue']);
+//makePalette(['red', 'yellow', 'blue']);
+
+function clearBoard() {
+    makeBoard(dim);
+}
 
 function makeBoard(rows) {
-    // clear board
     while(board.firstChild){
         board.removeChild(board.firstChild);
     }
@@ -50,4 +105,10 @@ makeBoard(16);
 const btn = document.querySelector('#size');
 btn.addEventListener('click', () =>
     makeBoard(window.prompt('Enter new sketchbook dimension'))
+)
+
+// allow user to clear board
+const clearBtn = document.querySelector('#clear');
+clearBtn.addEventListener('click', () =>
+    clearBoard()
 )
