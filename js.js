@@ -65,10 +65,6 @@ function makePalette(colors) {
 }
 //makePalette(['red', 'yellow', 'blue']);
 
-function clearBoard() {
-    makeBoard(dim);
-}
-
 function makeBoard(rows) {
     while(board.firstChild){
         board.removeChild(board.firstChild);
@@ -98,7 +94,8 @@ function makeBoard(rows) {
     }
 }
 
-// make default 16x16 board
+// make palette and default 16x16 board
+makePalette();
 makeBoard(16);
 
 // allow user to change size of board
@@ -110,5 +107,5 @@ btn.addEventListener('click', () =>
 // allow user to clear board
 const clearBtn = document.querySelector('#clear');
 clearBtn.addEventListener('click', () =>
-    clearBoard()
+    makeBoard(dim)
 )
