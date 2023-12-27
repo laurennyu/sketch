@@ -1,4 +1,6 @@
 const board = document.querySelector('#board');
+let color = 'black';
+
 function makeBoard(rows) {
     // clear board
     while(board.firstChild){
@@ -12,6 +14,17 @@ function makeBoard(rows) {
         for (let colNum = 0; colNum < rows; colNum++) {
             const tile = document.createElement('div');
             tile.classList.add('tile');
+            // hover
+            tile.addEventListener('mouseenter', () =>
+                tile.style.backgroundColor = color
+            )
+            tile.addEventListener('mouseleave', () =>
+                tile.style.backgroundColor = 'white'
+            )
+            // click
+            tile.addEventListener('mousedown', () =>
+                tile.style.backgroundColor = color
+            )
             row.appendChild(tile);
         }
         board.appendChild(row);
@@ -19,5 +32,10 @@ function makeBoard(rows) {
 }
 
 // make default 16x16 board
-makeBoard(2);
 makeBoard(16);
+
+// allow user to change size of board
+const btn = document.querySelector('#size');
+btn.addEventListener('click', () =>
+    makeBoard(window.prompt('Enter new sketchbook dimension'))
+)
