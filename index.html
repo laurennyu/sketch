@@ -6,12 +6,17 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-    <button id="upload">Upload Image</button>  
-    <button id="size">Change Size</button>
-    <button id="clear">Clear Canvas</button>
-    <div id="palette"></div>
+  <button id="size">Change Size</button>
+  <button id="clear">Clear Canvas</button>
+
+  <input type='file' id="image-input" accept="image/*" />
+  <br>
+  <div id="palette"></div>
+
+  <div id="canvas-holder">
+    <id id="preview">
     <div id="board"></div>
-    <input type='file' />
-    <br>
-    <img id="myImg">
+  </div>
+    
+  
 </body>

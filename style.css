@@ -1,4 +1,22 @@
+#canvas-holder {
+    position: relative;
+    height: 500px;
+    width: 500px;
+}
+
+#preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 500px;
+    width: 500px;
+    border-style: solid;
+}
+
 #board {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 500px;
     width: 500px;
     display: flex;
@@ -15,7 +33,6 @@
 #board div div {
     height: auto;
     width: auto;
-    background-color: white;
     flex: 1;
 }
 
@@ -28,3 +45,4 @@
     margin: 15px 5px;
     border-radius: 20px;
 }
+
