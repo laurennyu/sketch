@@ -1,6 +1,6 @@
 const board = document.querySelector('#board');
 let color = 'black';
-let dim = 16;
+let dim = 20;
 
 function makePalette(colors) {
     const palette = document.querySelector('#palette');
@@ -47,6 +47,62 @@ function makeBoard(rows) {
     }
 }
 
+/*
+function pixelateImage2(originalImage, pixelationFactor) {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    const originalWidth = originalImage.width;
+    const originalHeight = originalImage.height;
+    const canvasWidth = originalWidth;
+    const canvasHeight = originalHeight;
+
+    console.log(originalWidth, originalHeight, canvasWidth, canvasHeight);
+
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    context.drawImage(originalImage, 0, 0, originalWidth, originalHeight);
+    const originalImageData = context.getImageData(
+      0,
+      0,
+      originalWidth,
+      originalHeight
+    ).data;
+    if (pixelationFactor !== 0) {
+      for (let y = 0; y < originalHeight; y += pixelationFactor) {
+        for (let x = 0; x < originalWidth; x += pixelationFactor) {
+          // extracting the position of the sample pixel
+          const pixelIndexPosition = (x + y * originalWidth) * 4;
+          // drawing a square replacing the current pixels
+          context.fillStyle = `rgba(
+            ${originalImageData[pixelIndexPosition]},
+            ${originalImageData[pixelIndexPosition + 1]},
+            ${originalImageData[pixelIndexPosition + 2]},
+            ${originalImageData[pixelIndexPosition + 3]}
+          )`;
+          context.fillRect(x, y, pixelationFactor, pixelationFactor);
+        }
+      }
+    }
+    originalImage.src = canvas.toDataURL();
+  }
+
+function pixelateImage(img) {
+    var canvas = document.getElementById('canvas'); 
+    var ctx = canvas.getContext('2d');
+    const originalWidth = img.width;
+    const originalHeight = img.height;
+    const canvasWidth = originalWidth;
+    const canvasHeight = originalHeight;
+    console.log(originalWidth, originalHeight, canvasWidth, canvasHeight);
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    ctx.drawImage(img, 0, 0, dim, dim);
+    ctx.mozImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(canvas, 0, 0, dim, dim, 0, 0, canvas.width, canvas.height);  
+}*/
+
 // make palette and default board
 makePalette(['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'black']);
 makeBoard(20);
@@ -64,20 +120,85 @@ clearBtn.addEventListener('click', () =>
 )
 
 // allow user to change image
-
 window.addEventListener('load', function() {
     document.querySelector('input[type="file"]').addEventListener('change', function() {
         if (this.files && this.files[0]) {
             var img = document.querySelector('#preview');
+            //const img = new Image();
             img.onload = () => {
                 URL.revokeObjectURL(img.src);  // no longer needed, free memory
             }
-        
-            img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+            img.src = URL.createObjectURL(this.files[0]); // set src to blob url*/
+            //const canvas = document.createElement('canvas');
+            //canvas.getContext('2d').drawImage(img, 500, 500);
+            console.log(img.width);
+            console.log(img.height);
+            console.log(img);
+            pixelateImage(img);
         }
     })
 })
 
+var canvas = document.getElementById('canvas'); 
+var ctx = canvas.getContext('2d');
+var img = new Image();
+img.setAttribute('width', 500);
+img.setAttribute('height', 500);
+var size = 0.04;
+
+function firstDraw() {
+    var initialImageURL = document.querySelector('img').src;
+    draw(initialImageURL); 
+}
+
+function draw (imgURL) { 
+    //img.crossOrigin="anonymous"; 
+    img.src = imgURL; 
+    img.onload = function() { 
+      console.log(img.height);
+      console.log(img.width);
+      canvas.height = img.height/4; 
+      canvas.width = img.width/4; 
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height); 
+      pixelate(); 
+    }; 
+}  
+
+function pixelate() { 
+    canvas.height = img.height; 
+    canvas.width = img.width;
+    var w = canvas.width * size;
+    var h = canvas.height * size;
+
+    /// draw original image to the scaled size
+    ctx.drawImage(img, 0, 0, w, h);
+    
+    /// then draw that scaled image thumb back to fill canvas
+    /// As smoothing is off the result will be pixelated
+    ctx.mozImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(canvas, 0, 0, w, h, 0, 0, canvas.width, canvas.height);
+}
+
+function submitImageURL() {
+    var imgURL = document.getElementById("ImageURL").value;
+
+    //veriy the form isn't black or null
+    if (imgURL == null || imgURL == "") {
+        alert("Image URL must be filled out");
+        return false;
+    }
+    //verify that the address is secure
+    if ( imgURL.search("/https:/") != -1 ) {
+        alert("Image URL from https site (security reasons)");
+        return false;  
+    }
+
+    //draw the submitted image onto the canvas
+    draw(imgURL);
+}
+
+window.onload = firstDraw();
 
 // when image is uploaded
 /*let imgInput = document.getElementById('image-input');
